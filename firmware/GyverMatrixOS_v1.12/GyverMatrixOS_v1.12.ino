@@ -208,7 +208,7 @@ void setup() {
   // настройки ленты
   FastLED.addLeds<WS2812, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
   FastLED.setBrightness(BRIGHTNESS);
-  if (CURRENT_LIMIT > 0) FastLED.setMaxPowerInVoltsAndMilliamps(5, CURRENT_LIMIT);
+  if (CURRENT_LIMIT > 0) FastLED.setMaxPowerInVoltsAndMilliamps(12, CURRENT_LIMIT);
   FastLED.clear();
   FastLED.show();
   randomSeed(analogRead(0) + analogRead(1));    // пинаем генератор случайных чисел
