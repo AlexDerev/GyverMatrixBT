@@ -16,9 +16,8 @@
 #define RANDOM_COLOR 1    // случайный цвет при отскоке
 
 // эффект "огонь"
-//#define SPARKLES 1        // вылетающие угольки вкл выкл
-//#define HUE_ADD 0         // добавка цвета в огонь (от 0 до 230) - меняет весь цвет пламени
-#define FSCALE 1+30       //масштаб
+#define SPARKLES 1        // вылетающие угольки вкл выкл
+#define HUE_ADD 0         // добавка цвета в огонь (от 0 до 230) - меняет весь цвет пламени
 
 // эффект "кометы"
 #define TAIL_STEP 100     // длина хвоста кометы
@@ -158,7 +157,6 @@ void rainbowColorsRoutine() {
 
 
 // ********************** огонь **********************
-/*
 unsigned char matrixValue[8][16];
 unsigned char line[WIDTH];
 int pcnt = 0;
@@ -283,17 +281,7 @@ void drawFrame(int pcnt) {
     drawPixelXY(newX, 0, color);
   }
 }
-*/
-void fireRoutine() {
-  modeCode=20;
 
-  uint32_t a = millis();
-  for (byte i = 0U; i < WIDTH; i++) {
-    for (float j = 0.; j < HEIGHT; j++) {
-        drawPixelXY((WIDTH - 1) - i, (HEIGHT - 1) - j, ColorFromPalette(HeatColors_p, qsub8(inoise8(i * FSCALE, j * FSCALE + a, a / 255), abs8(j - (HEIGHT - 1)) * 255 / (HEIGHT - 1)), 255));
-    }
-  }
-}
 // **************** МАТРИЦА *****************
 void matrixRoutine() {
   if (loadingFlag) {
