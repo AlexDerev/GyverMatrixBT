@@ -295,7 +295,6 @@ void fireRoutine() {
   }
 }
 // **************** МАТРИЦА *****************
-/*
 void matrixRoutine() {
   if (loadingFlag) {
     loadingFlag = false;
@@ -320,55 +319,8 @@ void matrixRoutine() {
     }
   }
 }
-*/
-void matrixRoutine()
-{modeCode=14;
-  for (uint8_t x = 0U; x < WIDTH; x++)
-  {
-    // обрабатываем нашу матрицу снизу вверх до второй сверху строчки
-    for (uint8_t y = 0U; y < HEIGHT - 1U; y++)
-    {
-      uint32_t thisColor = getPixColorXY(x, y);                                              // берём цвет нашего пикселя
-      uint32_t upperColor = getPixColorXY(x, y + 1U);                                        // берём цвет пикселя над нашим
-      if (upperColor >= 0x900000 && random(7 * HEIGHT) != 0U)                  // если выше нас максимальная яркость, игнорим этот факт с некой вероятностью или опускаем цепочку ниже
-        drawPixelXY(x, y, upperColor);
-      else if (thisColor == 0U && random((0,10) * HEIGHT) == 0U)  // если наш пиксель ещё не горит, иногда зажигаем новые цепочки
-        //else if (thisColor == 0U && random((100 - modes[currentMode].Scale) * HEIGHT*3) == 0U)  // для длинных хвостов
-        drawPixelXY(x, y, 0x9bf800);
-      else if (thisColor <= 0x050800)                                                        // если наш пиксель почти погас, стараемся сделать затухание медленней
-      {
-        if (thisColor >= 0x030000)
-          drawPixelXY(x, y, 0x020300);
-        else if (thisColor != 0U)
-          drawPixelXY(x, y, 0U);
-      }
-      else if (thisColor >= 0x900000)                                                        // если наш пиксель максимальной яркости, резко снижаем яркость
-        drawPixelXY(x, y, 0x558800);
-      else
-        drawPixelXY(x, y, thisColor - 0x0a1000);                                             // в остальных случаях снижаем яркость на 1 уровень
-      //drawPixelXY(x, y, thisColor - 0x050800);                                             // для длинных хвостов
-    }
-    // аналогично обрабатываем верхний ряд пикселей матрицы
-    uint32_t thisColor = getPixColorXY(x, HEIGHT - 1U);
-    if (thisColor == 0U)                                                                     // если наш верхний пиксель не горит, заполняем его с вероятностью .Scale
-    {
-      if (random(0,10) == 0U)
-        drawPixelXY(x, HEIGHT - 1U, 0x9bf800);
-    }
-    else if (thisColor <= 0x050800)                                                          // если наш верхний пиксель почти погас, стараемся сделать затухание медленней
-    {
-      if (thisColor >= 0x030000)
-        drawPixelXY(x, HEIGHT - 1U, 0x020300);
-      else
-        drawPixelXY(x, HEIGHT - 1U, 0U);
-    }
-    else if (thisColor >= 0x900000)                                                          // если наш верхний пиксель максимальной яркости, резко снижаем яркость
-      drawPixelXY(x, HEIGHT - 1U, 0x558800);
-    else
-      drawPixelXY(x, HEIGHT - 1U, thisColor - 0x0a1000);                                     // в остальных случаях снижаем яркость на 1 уровень
-    //drawPixelXY(x, HEIGHT - 1U, thisColor - 0x050800);                                     // для длинных хвостов
-  }
-}
+
+
 // ********************************* ШАРИКИ *********************************
 int coord[BALLS_AMOUNT][2];
 int8_t vector[BALLS_AMOUNT][2];
